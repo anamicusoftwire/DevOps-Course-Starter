@@ -17,4 +17,14 @@
       </ul>
     </div>
   </div>
+
+  <form action="/add" method="post">
+    <div>
+      <label for="title">Enter the title for your new item: </label>
+      <input type="text" name="title" id="title" required>
+    </div>
+    <div>
+      <input type="submit" value="Save">
+    </div>
+  </form>
 {% endblock %}
