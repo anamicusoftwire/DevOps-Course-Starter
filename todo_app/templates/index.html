@@ -11,7 +11,7 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        {% for item in items %}
+        {% for item in view_model.items %}
           <li> 
             <p> {{ item.name }} - {{ item.status }} </p>
             <form  method = "post" action = "{{ url_for('move_item', id=item.id) }}">
