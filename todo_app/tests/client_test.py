@@ -23,6 +23,12 @@ def test_index_page(monkeypatch, client):
     monkeypatch.setattr(requests, 'get', get_stubs)
 
     response = client.get('/')
+    response_data = response.data.decode()
+
+    assert response.status_code == 200
+    print(response_data)
+    assert 'Test card' in response_data
+    assert '456' in response_data
 
 class StubResponse():
     def __init__(self, fake_response_data):
