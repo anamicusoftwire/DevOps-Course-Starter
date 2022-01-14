@@ -52,3 +52,12 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Running the Tests
+
+All the tests can be found within the `todo_app/tests` folder.
+You can run the tests with the following command:
+
+```bash
+poertry run pytest
+```
