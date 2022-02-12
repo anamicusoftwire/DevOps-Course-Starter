@@ -22,3 +22,9 @@
       mode: '777'
       state: directory
     become: yes
+
+  - name: Clone latest version of code
+    ansible.builtin.git:
+      repo: 'https://github.com/anamicusoftwire/DevOps-Course-Starter.git'
+      dest: /opt/todoapp
+      version: exercise-4
