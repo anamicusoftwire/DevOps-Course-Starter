@@ -1,0 +1,12 @@
+- name: Install ToDo app
+  hosts: webservers
+  remote_user: ec2-user
+
+  tasks:
+  - name: Install Git
+    ansible.builtin.yum:
+      name:
+        - git
+        - python3
+      state: present
+    become: yes
