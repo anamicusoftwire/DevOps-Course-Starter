@@ -15,3 +15,10 @@
     ansible.builtin.shell:
       cmd: curl -SsL https://install.python-poetry.org | python3 -
       creates: /home/ex2-user/.local/bin/poetry
+
+  - name: Create directory for ToDo app code
+    ansible.builtin.file:
+      path: /opt/todoapp
+      mode: '777'
+      state: directory
+    become: yes
