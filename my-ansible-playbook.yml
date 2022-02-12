@@ -28,3 +28,8 @@
       repo: 'https://github.com/anamicusoftwire/DevOps-Course-Starter.git'
       dest: /opt/todoapp
       version: exercise-4
+
+  - name: Install project dependencies
+    ansible.builtin.shell:
+      chdir: /opt/todoapp
+      cmd: . /home/ec2-user/.bash_profile && poetry install
