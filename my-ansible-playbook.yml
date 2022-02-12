@@ -2,6 +2,20 @@
   hosts: webservers
   remote_user: ec2-user
 
+  vars_prompt:
+  - name: trello_board_name
+    prompt: Enter the name of Trello board
+    private: no
+
+  - name: trello_api_key
+    prompt: Enter API key for Trello
+    private: no
+
+  - name: trello_token
+    prompt: Enter the token for Trello
+    private: no
+
+
   tasks:
   - name: Install Git and Python
     ansible.builtin.yum:
@@ -33,3 +47,10 @@
     ansible.builtin.shell:
       chdir: /opt/todoapp
       cmd: . /home/ec2-user/.bash_profile && poetry install
+
+  - name: Create environment file
+    ansible.builtin.template:
+      src: /home/ec2-user/.env.j2
+      dest: /opt/todoapp/.env
+      mode: '777'
+
