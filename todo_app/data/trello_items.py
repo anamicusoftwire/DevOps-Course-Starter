@@ -1,5 +1,5 @@
 
-from todo_app.data.card import Card
+from todo_app.data.item import Item
 import requests
 import os
 
@@ -66,69 +66,69 @@ def get_list_by_name(name):
 
     lists = get_lists()
 
-    return next((list_with_cards for list_with_cards in lists if list_with_cards['name'] == name), None)
+    return next((list_with_items for list_with_items in lists if list_with_items['name'] == name), None)
 
-def get_cards():
+def get_items():
     """
-    Fetches all cards for the default board.
+    Fetches all items for the default board.
     
     Returns:
-        list: The list of cards.
+        list: The list of items.
     """
 
     lists = get_lists()
-    cards = []
+    items = []
     
-    for list_with_cards in lists:
-        for card in list_with_cards['cards']:
-            new_card = Card(card['id'], card['name'], list_with_cards['name'])
-            cards.append(new_card)
+    for list_with_items in lists:
+        for item in list_with_items['cards']:
+            new_item = Item(item['id'], item['name'], list_with_items['name'])
+            items.append(new_item)
 
-    return cards
+    return items
 
-def get_card_by_id(card_id):
+def get_item_by_id(item_id):
     """
-    Fetches details of card by id.
+    Fetches details of item by id.
     
     Returns:
-        card: The details of card.
+        item: The details of item.
     """
 
-    cards = get_cards()
-    return next((card for card in cards if card.id == card_id), None)
+    items = get_items()
+    return next((item for item in items if item.id == item_id), None)
 
-def add_card(name):
+def add_item(name):
     """
-    Adds a new card with specific name.
+    Adds a new item with specific name.
 
-    Returns: The created card or None if card does not exist.
+    Returns: The created item or None if item does not exist.
     """
-    list_with_cards = get_list_by_name('To Do')
-    params = get_params_with_auth({'name': name, 'idList': list_with_cards['id']})
+    list_with_items = get_list_by_name('To Do')
+    params = get_params_with_auth({'name': name, 'idList': list_with_items['id']})
     url = get_url('/1/cards')
 
     response = requests.post(url = url, params = params)
-    card = response.json()
+    item = response.json()
 
-    return Card(card['id'], card['name'], list_with_cards['name'])
+    return Item(item['id'], item['name'], list_with_items['name'])
 
-def change_status(card_id):
+def change_status(item_id):
     """
-    Move the card to the next list.
+    Move the item to the next list.
 
-    Returns: The updated card or None if card does not exist.
+    Returns: The updated item or None if item does not exist.
     """
-    current_card = get_card_by_id(card_id)
-    if current_card.status == 'To Do':
+    current_item = get_item_by_id(item_id)
+    if current_item.status == 'To Do':
         new_status = 'Doing'
-    elif current_card.status == 'Doing':
+    elif current_item.status == 'Doing':
         new_status = 'Done'
     else:
         new_status = 'To Do'
     new_list = get_list_by_name(new_status)
     params = get_params_with_auth({'idList': new_list['id']})
-    url = get_url('/1/cards/%s' % card_id)
+    url = get_url('/1/cards/%s' % item_id)
 
     response = requests.put(url = url, params = params)
-    new_card = response.json()
-    return Card(new_card['id'], new_card['name'], new_status)
+    new_item = response.json()
+    return Item(new_item['id'], new_item['name'], new_status)

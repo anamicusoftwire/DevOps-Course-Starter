@@ -9,15 +9,36 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>To Do Items</h2>
       <ul class="list-group mb-4">
-        {% for item in items %}
-          <li> 
-            <p> {{ item.name }} - {{ item.status }} </p>
-            <form  method = "post" action = "{{ url_for('move_item', id=item.id) }}">
-              <button class="btn btn-danger btn-xs" type="submit">Move</button>
-            </form>
-          </li>
+        {% for item in view_model.to_do_items %}
+          <form  method="post" action="{{ url_for('move_item', id=item.id) }}">
+            <li>{{ item.name }} - {{ item.status }}
+              <input type="submit" action="{{ url_for('move_item', id=item.id) }}" name="Start Item" value="Start Item" method="POST"></input>
+            </li>
+          </form>
+        {% endfor %}
+      </ul>
+
+      <h2>Doing Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in view_model.doing_items %}
+          <form  method="post" action="{{ url_for('move_item', id=item.id) }}">
+            <li>{{ item.name }} - {{ item.status }}
+              <input type="submit" action="{{ url_for('move_item', id=item.id) }}" name="Complete Item" value="Complete Item" method="POST"></input>
+            </li>
+          </form>
+        {% endfor %}
+      </ul>
+
+      <h2>Done Items</h2>
+      <ul class="list-group mb-4">
+        {% for item in view_model.done_items %}
+          <form  method="post" action="{{ url_for('move_item', id=item.id) }}">
+            <li>{{ item.name }} - {{ item.status }}
+              <input type="submit" action="{{ url_for('move_item', id=item.id) }}" name="Restart Item" value="Restart Item" method="POST"></input>
+            </li>
+          </form>
         {% endfor %}
       </ul>
     </div>
