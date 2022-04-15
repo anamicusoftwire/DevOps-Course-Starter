@@ -66,3 +66,10 @@ You can run a specific test with the following command:
 ```bash
 poetry run pytest -k 'test_name'
 ```
+
+## Docker
+```bash
+docker build --target development --tag todo-app:dev
+docker build --target production --tag todo-app:dev
+docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo-app -d todo-app:dev
+```
