@@ -1,5 +1,10 @@
 name: Continuous Integration
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.ms'
 jobs:
   build:
     name: Build and test
