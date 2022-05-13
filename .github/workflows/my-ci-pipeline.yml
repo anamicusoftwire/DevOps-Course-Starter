@@ -5,5 +5,7 @@ jobs:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - run: echo Hello World
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Build
+      run: docker build --target development --tag todo-app:dev .
