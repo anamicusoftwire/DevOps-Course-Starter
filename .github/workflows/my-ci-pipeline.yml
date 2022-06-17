@@ -36,7 +36,7 @@ jobs:
     - name: Docker Build
       run: docker build --target production --tag anamic/todo-app:${{ github.sha }} .
     - name: Tag Build
-      run: docker tag anamic/todo-app:prod anamic/todo-app:${{ github.sha }}
+      run: docker tag anamic/todo-app:${{ github.sha }} anamic/todo-app:prod
     - name: Docker Push
       run: docker push anamic/todo-app:${{ github.sha }}
     - name: Login to Heroku
