@@ -3,4 +3,4 @@ Description=My To-Do App
 
 [Service]
 WorkingDirectory=/opt/todoapp
-ExecStart=/home/ec2-user/.local/bin/poetry gunicorn --bind 0.0.0.0:80 "wsgi:run()"
+ExecStart=/home/ec2-user/.local/bin/poetry run flask run --port=80 --host=0.0.0.0
