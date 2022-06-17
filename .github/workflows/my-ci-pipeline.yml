@@ -37,3 +37,5 @@ jobs:
       run: docker build --target production --tag anamic/todo-app:${{ github.sha }} .
     - name: Docker Push
       run: docker push anamic/todo-app:${{ github.sha }}
+    - name: Login to Heroku
+      run: docker login --username=_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
