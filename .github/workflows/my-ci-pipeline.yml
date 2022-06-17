@@ -46,6 +46,6 @@ jobs:
     - name: Push Heroku
       run: docker push registry.heroku.com/anamic-todo-app/web
     - name: Heroku login
-      run: heroku container:login
+      run: docker login --username=_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
     - name: Deploy Heroku
       run: heroku container:release -a anamic-todo-app web
