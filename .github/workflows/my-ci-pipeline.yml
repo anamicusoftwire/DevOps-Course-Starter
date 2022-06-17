@@ -45,5 +45,7 @@ jobs:
       run: docker tag anamic/todo-app:prod registry.heroku.com/anamic-todo-app/web
     - name: Push Heroku
       run: docker push registry.heroku.com/anamic-todo-app/web
+    - name: Heroku login
+      run: heroku container:login
     - name: Deploy Heroku
       run: heroku container:release -a anamic-todo-app web
