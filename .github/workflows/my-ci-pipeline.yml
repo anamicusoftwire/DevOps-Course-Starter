@@ -9,7 +9,7 @@ on:
     paths-ignore:
       - '**.md'
 jobs:
-  build:
+  test:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
@@ -19,3 +19,9 @@ jobs:
       run: docker build --target development --tag todo-app:dev .
     - name: Unit Tests and Integration Tests
       run: docker run --env-file .env.test --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo-app -d todo-app:dev
+
+  release:
+    name: Release to production
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ github.ref_name == 'exercise-8'}}
