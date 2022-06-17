@@ -2,7 +2,7 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - main
+      - exercise-8
     paths-ignore:
       - '**.md'
   pull_request:
