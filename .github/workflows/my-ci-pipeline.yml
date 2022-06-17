@@ -40,6 +40,6 @@ jobs:
     - name: Login to Heroku
       run: docker login --username=_ --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
     - name: Tag Heroku
-      run: docker tag todo-app registry.heroku.com/anamic-todo-app
+      run: docker tag anamic/todo-app registry.heroku.com/anamic-todo-app
     - name: Push Heroku
       run: docker push registry.heroku.com/anamic-todo-app
