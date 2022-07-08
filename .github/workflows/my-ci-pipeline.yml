@@ -39,16 +39,6 @@ jobs:
       run: docker tag anamic/todo-app:${{ github.sha }} anamic/todo-app:prod
     - name: Docker Push
       run: docker push anamic/todo-app:prod && docker push anamic/todo-app:${{ github.sha }}
-    - name: Login to Heroku
-      run: docker login --username=${{ secrets.HEROKU_USERNAME }} --password=${{ secrets.HEROKU_API_KEY }} registry.heroku.com
-    - name: Tag Heroku
-      run: docker tag anamic/todo-app:prod registry.heroku.com/anamic-todo-app/web
-    - name: Push Heroku
-      run: docker push registry.heroku.com/anamic-todo-app/web
-    - name: Deploy Heroku
-      uses: akhileshns/heroku-deploy@v3.12.12
-      with:
-        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-        heroku_app_name: 'anamic-todo-app'
-        heroku_email: 'ana.micu@softwire.com'
-        usedocker: true
+    - name: Release To Do App on Azure
+      run: curl -dH -X POST ${{ secrets.AZURE_DEPLOY_WEBHOOK }}
+    
