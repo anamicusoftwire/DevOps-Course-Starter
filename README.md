@@ -73,3 +73,6 @@ docker build --target development --tag todo-app:dev
 docker build --target production --tag todo-app:dev
 docker run -p 5000:5000 --env-file .env --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo-app -d todo-app:dev
 ```
+
+## Azure
+Application is deployed to Azure. The URL: https://to-do-app-ana-micu.azurewebsites.net/
