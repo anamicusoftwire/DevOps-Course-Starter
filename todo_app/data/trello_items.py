@@ -2,7 +2,6 @@
 import pymongo
 from todo_app.data.item import Item
 from bson.objectid import ObjectId
-import requests
 import os
 
 class TrelloItems:
