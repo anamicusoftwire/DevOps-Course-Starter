@@ -16,7 +16,6 @@ def client():
             yield client
 
 def test_index_page(client):
-    print(client.list_database_names())
     db_connection = pymongo.MongoClient(os.environ.get('MONGO_CONNECTION_STRING'))
     db = db_connection[os.environ.get('MONGO_DATABASE_NAME')]
     items = db.items
