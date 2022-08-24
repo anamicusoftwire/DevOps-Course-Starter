@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect, request, url_for
-from todo_app.data.authorization import get_identity
+from todo_app.data.authorization import get_identity, get_user_details
 from todo_app.data.trello_items import TrelloItems
+from todo_app.data.user import User
 from todo_app.data.view_model import ViewModel
-from flask_login import LoginManager, login_required
+from flask_login import LoginManager, login_required, login_user
 
 from todo_app.flask_config import Config
 
@@ -31,18 +32,25 @@ def create_app():
         trello_items.change_status(id)
         return redirect(url_for('index'))
 
+    @app.route('/login/callback')
+    def login_callback():
+        code = request.args.get('code')
+        user = get_user_details(code)
+        login_user(user)
+
+        return redirect(url_for('index'))
+
     login_manager = LoginManager()
     
     @login_manager.unauthorized_handler
     def unauthenticated():
         return get_identity()
 
-
     unauthenticated
     @login_manager.user_loader
     def load_user(user_id):
-        pass # We will return to this later
-    
+        return User(user_id)
+
     login_manager.init_app(app)
 
     return app
