@@ -3,10 +3,10 @@ from todo_app.data.view_model import ViewModel
 
 def test_it_returns_to_do_items():
     items = [
-        Item(1, 'Item 1', 'To Do'),
-        Item(2, 'Item 2', 'Doing'),
-        Item(3, 'Item 3', 'Done'),
-        Item(4, 'Item 4', 'To Do'),
+        Item({"_id": 1, "name": 'Item 1', "status": 'To Do'}),
+        Item({"_id": 2, "name": 'Item 1', "status": 'Doing'}),
+        Item({"_id": 3, "name": 'Item 1', "status": 'Done'}),
+        Item({"_id": 4, "name": 'Item 1', "status": 'To Do'}),
     ]
 
     view_model = ViewModel(items)
@@ -15,10 +15,10 @@ def test_it_returns_to_do_items():
 
 def test_it_returns_doing_items():
     items = [
-        Item(1, 'Item 1', 'To Do'),
-        Item(2, 'Item 2', 'Doing'),
-        Item(3, 'Item 3', 'Done'),
-        Item(4, 'Item 4', 'Doing'),
+        Item({"_id": 1, "name": 'Item 1', "status": 'To Do'}),
+        Item({"_id": 2, "name": 'Item 1', "status": 'Doing'}),
+        Item({"_id": 3, "name": 'Item 1', "status": 'Done'}),
+        Item({"_id": 4, "name": 'Item 1', "status": 'Doing'}),
     ]
 
     view_model = ViewModel(items)
@@ -27,12 +27,11 @@ def test_it_returns_doing_items():
 
 def test_it_returns_done_items():
     items = [
-        Item(1, 'Item 1', 'To Do'),
-        Item(2, 'Item 2', 'Doing'),
-        Item(3, 'Item 3', 'Done'),
-        Item(4, 'Item 4', 'Done'),
+        Item({"_id": 1, "name": 'Item 1', "status": 'To Do'}),
+        Item({"_id": 2, "name": 'Item 1', "status": 'Doing'}),
+        Item({"_id": 3, "name": 'Item 1', "status": 'Done'}),
+        Item({"_id": 4, "name": 'Item 1', "status": 'Done'}),
     ]
-
     view_model = ViewModel(items)
 
     assert len(view_model.done_items) == 2
