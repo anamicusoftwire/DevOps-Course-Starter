@@ -6,10 +6,11 @@ import os
 
 class TrelloItems:
 
-    def __init__(self):
+    def __init__(self, logger):
         self.client = pymongo.MongoClient(os.getenv('MONGO_CONNECTION_STRING'))
         self.db = self.client[os.getenv('MONGO_DATABSE_NAME')]
         self.items = self.db.items
+        self.logger = logger
 
     def get_items(self):
         """
@@ -48,6 +49,8 @@ class TrelloItems:
 
         self.items.insert_one(item)
 
+        self.logger.info("Item %s was added.", name)
+
     def change_status(self, item_id):
         """
         Move the item to the next list.
@@ -64,3 +67,6 @@ class TrelloItems:
             new_status = 'To Do'
         
         self.items.update_one({"_id": ObjectId(item_id)}, {"$set": {"status": new_status}})
+
+        self.logger.info("Status of item was changed from %s to %s.", current_item.status, new_status)
+
