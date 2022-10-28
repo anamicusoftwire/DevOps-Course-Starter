@@ -10,7 +10,7 @@ from todo_app.flask_config import Config
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
-    trello_items = TrelloItems()
+    trello_items = TrelloItems(app.logger)
 
     @app.route('/')
     @login_required
@@ -37,6 +37,7 @@ def create_app():
         code = request.args.get('code')
         user = get_user_details(code)
         login_user(user)
+        app.logger.info("User %s was logged in.", user.id)
 
         return redirect(url_for('index'))
 
